@@ -6,9 +6,9 @@
 
 ## 브랜치
 
-| 브랜치 | Next | 설명 |
-|---|---|---|
-| `master` | 15.5 | 기본 틀 (`middleware.ts`, fetch 캐시 옵션) |
+| 브랜치    | Next | 설명                                                         |
+| --------- | ---- | ------------------------------------------------------------ |
+| `master`  | 15.5 | 기본 틀 (`middleware.ts`, fetch 캐시 옵션)                   |
 | `next-16` | 16.4 | `proxy.ts`, Turbopack 기본, Cache Components (`"use cache"`) |
 
 두 브랜치의 차이는 `git diff master next-16` 으로 확인
@@ -19,14 +19,15 @@
 npm install
 npm run dev        # APP_ENV=development
 npm run build:dev  # 개발 환경 빌드
-npm run start
+npm run start:dev  # 개발 환경 실행 (빌드와 같은 APP_ENV로 실행)
 ```
 
-| 스크립트 | 설명 |
-|---|---|
-| `dev` / `dev:qa` / `dev:prod` | 환경별 개발 서버 |
-| `build:dev` / `build:qa` / `build` | 환경별 빌드 |
-| `ts:check` / `lint` / `test:run` | 타입 체크 / ESLint / 단위 테스트 |
+| 스크립트                           | 설명                                                                    |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `dev` / `dev:qa` / `dev:prod`      | 환경별 개발 서버                                                        |
+| `build:dev` / `build:qa` / `build` | 환경별 빌드                                                             |
+| `start:dev` / `start:qa` / `start` | 환경별 실행 (서버 전용 env는 실행 시점에 읽으므로 빌드와 같은 환경으로) |
+| `ts:check` / `lint` / `test:run`   | 타입 체크 / ESLint / 단위 테스트                                        |
 
 ## 환경 변수
 

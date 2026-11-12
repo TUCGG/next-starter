@@ -2,6 +2,11 @@ import {API_ENDPOINT} from '@/api/index';
 import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {z} from 'zod';
 
+// 캐시 태그 (서버 캐시 무효화 시 사용 - revalidateTag)
+export const COMMON_CACHE_TAG = {
+  TEST: 'common-test'
+} as const;
+
 // Response 스키마 모델
 export const TestSchema = z.array(
   z.object({
@@ -28,7 +33,7 @@ export interface ICommonRepository {
  *
  * @example
  * // 캐시 옵션은 호출부에서 전달 (서버 인스턴스에서만 적용)
- * repository.common.getTest({fetchOptions: {next: {revalidate: 60, tags: ['common-test']}}});
+ * repository.common.getTest({fetchOptions: {next: {revalidate: 60, tags: [COMMON_CACHE_TAG.TEST]}}});
  */
 export const createCommonRepository = (api: AxiosInstance): ICommonRepository => ({
   /** 테스트 데이터 조회 */
