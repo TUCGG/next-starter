@@ -1,0 +1,7 @@
+# .husky/pre-commit
+set -e
+
+. "$(dirname "$0")/../scripts/husky/ensure-node.sh"
+
+npm run gitleaks:scan-staged
+npm run lint:staged

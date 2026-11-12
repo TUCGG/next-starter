@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+
+. "$(dirname "$0")/../scripts/husky/ensure-node.sh"
+
+log() {
+  printf '%s\n' "$*" >&2
+}
+
+log_info() {
+  log "[RUN] $*"
+}
+
+log_success() {
+  log "[PASS] $*"
+}
+
+log_error() {
+  log "[FAIL] $*"
+}
+
+run_step() {
+  step_name="$1"
+  shift
+
+  log ""
+  log_info "pre-push: $step_name 시작"
+
+  set +e
+  "$@"
+  status=$?
+  set -e
+
+  if [ "$status" -eq 0 ]; then
+    log_success "pre-push: $step_name 통과"
+    return 0
+  fi
+
+  log ""
+  log_error "pre-push: $step_name 실패 (exit code: $status)"
+  log_error "pre-push: push를 중단합니다. 위 로그에서 '$step_name' 실패 원인을 확인하세요."
+  exit "$status"
+}
+
+run_step "Gitleaks secret scan" npm run gitleaks:scan
+run_step "ESLint" npm run lint
+run_step "TypeScript type check" npm run ts:check
+run_step "Unit tests" npm run test:run
+run_step "npm audit production critical 이상" npm audit --omit=dev --audit-level=critical

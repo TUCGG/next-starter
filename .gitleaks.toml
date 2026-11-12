@@ -1,0 +1,18 @@
+[allowlist]
+description = "프로젝트 로컬 설정 및 예제 파일 경로 제외"
+paths = [
+  '''^_ssl/twww\.bubblecon\.io-key\.pem$''',
+  '''^environment/tools/\.env\.gitleaks\.local$''',
+  '''^environment/tools/\.env\.nuclei\.local$''',
+  '''^environment/tools/\.env\.owasp-zap\.local$''',
+  '''^environment/tools/\.env\.semgrep\.local$''',
+  '''^environment/tools/\.env\.sonarqube\.local$''',
+  '''^\.env\.gitleaks\.local$''',
+  '''^\.env\.nuclei\.local$''',
+  '''^\.env\.owasp-zap\.local$''',
+  '''^\.env\.semgrep\.local$''',
+  '''^\.env\.sonarqube\.local$''',
+  '''^http/http-client\.private\.env\.json$''',
+  '''^SETUP\.md$''',
+  '''^http/example\.http$''',
+]

@@ -1,0 +1,5 @@
+# Gitleaks 탐지 결과의 fingerprint만 예외로 등록한다.
+# 파일 경로 기반 제외는 .gitleaks.toml의 allowlist.paths에서 관리한다.
+#
+# 예시:
+# abc123def4567890:src/example.ts:generic-api-key:1
