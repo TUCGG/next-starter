@@ -12,6 +12,7 @@
 ### 파일 구조 예시
 
 ```text
-|- example.repository.ts # API 레파지토리
-|- index.ts # 엔트리 파일 (export 집합)
+|- example.repository.ts # API 레파지토리 (createExampleRepository(api) 팩토리, 인스턴스 주입)
+|- index.ts # 엔트리 파일 - 클라이언트용 (apiClient 주입)
+|- server.ts # 엔트리 파일 - 서버용 (apiServer 주입, server-only)
 ```

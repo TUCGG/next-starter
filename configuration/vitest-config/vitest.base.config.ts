@@ -20,7 +20,12 @@ import {defineConfig, type ViteUserConfig} from 'vitest/config';
 export default (userConfig?: ViteUserConfig) => {
   return defineConfig({
     ...userConfig,
-    resolve: {tsconfigPaths: true, ...userConfig?.resolve}, // tsconfig paths(@/*) 해석 (Vite 8 내장)
+    resolve: {
+      tsconfigPaths: true, // tsconfig paths(@/*) 해석 (Vite 8 내장)
+      // server-only 는 react-server 환경이 아니면 throw → 테스트에서는 빈 모듈로 대체 (서버 전용 모듈 테스트 가능)
+      alias: {'server-only': `${process.cwd()}/node_modules/server-only/empty.js`},
+      ...userConfig?.resolve
+    },
     oxc: {jsx: {runtime: 'automatic'}}, // tsconfig jsx: preserve(Next 전용)와 무관하게 테스트 JSX 변환
     test: {
       environment: 'jsdom',

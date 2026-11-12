@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import {notFound, unstable_rethrow} from 'next/navigation';
 
 import * as Shared from '@/shared/index';
 
@@ -33,6 +34,9 @@ const getComments = async () => {
 
     return {data, fetchedAt: new Date().toISOString()};
   } catch (err) {
+    // Next 내부 제어 에러(redirect, notFound, 동적 렌더링 신호 등)는 삼키지 않고 다시 던짐
+    unstable_rethrow(err);
+
     // 외부 API 실패가 페이지 전체를 죽이지 않도록 에러 문구로 대체
     return {error: (err as Error).message};
   }
@@ -60,6 +64,11 @@ const ServerComments = async () => {
 
 /** 테스트 페이지 */
 const TestPage = () => {
+  // 운영 환경에서는 404 (빌드 시 운영 API 호출 방지, 요청 차단은 middleware 에서도 처리)
+  if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
+    notFound();
+  }
+
   return (
     <>
       <h2>[테스트] 서버 컴포넌트 XHR (repository/server)</h2>

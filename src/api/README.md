@@ -12,15 +12,17 @@
 
 ```text
 |- [axios]
+|-- axios.instance.ts # 공통 axios 인스턴스 생성
 |-- [client] # 클라이언트
 |--- [instance] # 기본 인스턴스 설정
 |---- api.instance.ts
 |--- [interceptor] # 요청/응답 인터셉터 정의
 |---- api.interceptor.ts
-|-- [server] # 서버
+|-- [server] # 서버 (server-only, adapter: 'fetch' → Next 캐시 옵션 전달)
 |--- [instance] # 기본 인스턴스 설정
 |---- api.instance.ts
 |--- [interceptor] # 요청/응답 인터셉터 정의
 |---- api.interceptor.ts
-|- index.ts # REST API 엔드포인트 정의, API 인스턴스 (export)
+|- index.ts # REST API 엔드포인트 정의, 클라이언트 인스턴스 (export)
+|- server.ts # 서버 인스턴스 (export) - 서버 컴포넌트 / Server Action 에서만 import
 ```
