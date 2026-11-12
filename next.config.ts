@@ -10,7 +10,9 @@ loadEnv({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  poweredByHeader: false
+  poweredByHeader: false,
+  // lint는 npm run lint / pre-push 에서 별도 실행 (Next 16은 빌드 시 lint 자체가 제거됨)
+  eslint: {ignoreDuringBuilds: true}
 };
 
 export default nextConfig;

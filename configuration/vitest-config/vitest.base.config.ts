@@ -21,6 +21,7 @@ export default (userConfig?: ViteUserConfig) => {
   return defineConfig({
     ...userConfig,
     resolve: {tsconfigPaths: true, ...userConfig?.resolve}, // tsconfig paths(@/*) 해석 (Vite 8 내장)
+    oxc: {jsx: {runtime: 'automatic'}}, // tsconfig jsx: preserve(Next 전용)와 무관하게 테스트 JSX 변환
     test: {
       environment: 'jsdom',
       include: ['src/**/*.test.{ts,tsx}'],

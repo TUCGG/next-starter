@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
 import React from 'react';
 
+import Providers from './providers';
+
 /** 문서 HEAD (react-starter HeadComponent 대체) */
 export const metadata: Metadata = {
   title: {
@@ -15,7 +17,9 @@ export const metadata: Metadata = {
 const RootLayout = ({children}: {children: React.ReactNode}) => {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 };
