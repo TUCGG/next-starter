@@ -1,0 +1,41 @@
+# [IntelliJ]
+.idea
+
+# Dependencies
+node_modules
+.npmrc
+.pnp
+.pnp.js
+
+# Local env files
+.env.local
+.env.test.local
+.env.secret.local
+.env.secret.*.local
+
+# Next
+.next
+next-env.d.ts
+*.tsbuildinfo
+
+# Testing
+coverage
+reports
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+.DS_Store
+
+# Cert
+*.pem
+
+# Superpowers 작업 폴더
+.superpowers
+
+# Gitleaks local env
+.env.gitleaks.local
+environment/tools/.env.gitleaks.local

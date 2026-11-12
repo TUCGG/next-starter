@@ -1,0 +1,75 @@
+{
+  "name": "next-starter",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env APP_ENV=development next dev --turbopack",
+    "dev:qa": "cross-env APP_ENV=qa next dev --turbopack",
+    "dev:prod": "cross-env APP_ENV=production next dev --turbopack",
+    "build:dev": "cross-env APP_ENV=development next build",
+    "build:qa": "cross-env APP_ENV=qa next build",
+    "build": "cross-env APP_ENV=production next build",
+    "start": "next start",
+    "ts:check": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:cover": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:debug": "eslint . --debug",
+    "lint:report": "eslint ./src --ignore-pattern '**/*.d.ts' -f json -o reports/lint/report.json",
+    "lint:staged": "lint-staged",
+    "gitleaks:scan-staged": "sh ./scripts/gitleaks/gitleaks-scan-staged.sh",
+    "gitleaks:scan": "sh ./scripts/gitleaks/gitleaks-scan.sh",
+    "prettier:fix": "prettier --cache --write \"src/**/*.{js,ts,tsx,md}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{css,scss,json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "classnames": "^2.5.1",
+    "dompurify": "^3.3.0",
+    "dotenv": "^17.2.3",
+    "html-entities": "^2.6.0",
+    "next": "15.5.29",
+    "react": "^19.2.3",
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^19.2.3",
+    "react-error-boundary": "^6.0.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.5.4",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@next/eslint-plugin-next": "15.5.29",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.0",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitest/coverage-v8": "^4.1.8",
+    "@vitest/ui": "^4.1.8",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-security": "^4.0.0",
+    "eslint-plugin-sonarjs": "^4.0.3",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jsdom": "^27.0.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.1.8"
+  }
+}

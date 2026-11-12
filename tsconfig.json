@@ -1,0 +1,30 @@
+{
+  "extends": "./configuration/typescript-config/tsconfig.base.json",
+  "compilerOptions": {
+    /** Linting */
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    /** Next */
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    /** Root Path */
+    "baseUrl": ".",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "src",
+    "next.config.ts",
+    "vitest.config.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
