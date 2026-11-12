@@ -80,8 +80,16 @@ const {data} = await repository.common.getTest();
 ```
 
 - 두 repository는 같은 인터페이스(`IRepository`)를 가지며, 주입된 axios 인스턴스만 다름
-- 서버 인스턴스는 `adapter: 'fetch'` 를 사용하므로 Next 캐시 옵션(`fetchOptions.next`)을 그대로 전달 가능
+- 캐시는 호출부의 `"use cache"` 함수에서 `cacheLife` / `cacheTag` 로 지정, 무효화는 Server Action의 `updateTag`
 - 사용 예제: `/test`
+
+## Next 16 주의사항 (Cache Components)
+
+- `"use cache"` 안에서는 `cookies()` / `headers()` 사용 불가 → 사용자별 요청(토큰 등)은 캐시 함수 밖에서 호출
+- `"use cache"` 안에서 throw 된 에러는 바깥에서 `catch` 해도 prerender(빌드)가 실패 → 캐시 함수 안에서 처리
+- 캐시 수명이 짧거나(`cacheLife('seconds')`) 런타임 데이터를 쓰는 컴포넌트는 `<Suspense>` 로 감싸야 빌드됨
+- 반환값은 직렬화 가능해야 함 → `AxiosResponse` 가 아닌 `data` 만 반환
+- `next build` 는 lint를 실행하지 않음 → `npm run lint` 별도 실행 (pre-push 포함)
 
 ## 기술 스택 (Tech Stack)
 

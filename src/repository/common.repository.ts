@@ -2,7 +2,7 @@ import {API_ENDPOINT} from '@/api/index';
 import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {z} from 'zod';
 
-// 캐시 태그 (서버 캐시 무효화 시 사용 - revalidateTag)
+// 캐시 태그 ("use cache" 함수의 cacheTag / Server Action의 updateTag)
 export const COMMON_CACHE_TAG = {
   TEST: 'common-test'
 } as const;
@@ -32,8 +32,12 @@ export interface ICommonRepository {
  * @param api - axios 인스턴스
  *
  * @example
- * // 캐시 옵션은 호출부에서 전달 (서버 인스턴스에서만 적용)
- * repository.common.getTest({fetchOptions: {next: {revalidate: 60, tags: [COMMON_CACHE_TAG.TEST]}}});
+ * // 캐시는 호출부의 "use cache" 함수에서 지정 (반환값은 직렬화 가능한 data만)
+ * const getComments = async () => {
+ *   'use cache';
+ *   cacheTag(COMMON_CACHE_TAG.TEST);
+ *   return (await repository.common.getTest()).data;
+ * };
  */
 export const createCommonRepository = (api: AxiosInstance): ICommonRepository => ({
   /** 테스트 데이터 조회 */

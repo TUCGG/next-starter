@@ -24,8 +24,9 @@ loadEnv({
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // lint는 npm run lint / pre-push 에서 별도 실행 (Next 16은 빌드 시 lint 자체가 제거됨)
-  eslint: {ignoreDuringBuilds: true}
+  // Cache Components ("use cache" / cacheLife / cacheTag) - 다음 메이저에서 기본값이 되며 옵션 제거 예정
+  cacheComponents: true,
+  partialPrefetching: true
 };
 
 export default nextConfig;

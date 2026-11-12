@@ -1,5 +1,7 @@
 import type {Metadata} from 'next';
+import {cacheLife, cacheTag} from 'next/cache';
 import {notFound, unstable_rethrow} from 'next/navigation';
+import {Suspense} from 'react';
 
 import * as Shared from '@/shared/index';
 
@@ -16,13 +18,14 @@ export const metadata: Metadata = {
 
 /**
  * getComments
- * @description 서버 조회 (repository/server → apiServer), 캐시 옵션은 호출부에서 전달
+ * @description 서버 조회 (repository/server → apiServer), "use cache"로 결과 캐시
  */
 const getComments = async () => {
+  'use cache';
+  cacheTag(COMMON_CACHE_TAG.TEST);
+
   try {
-    const {data} = await repository.common.getTest({
-      fetchOptions: {next: {revalidate: 60, tags: [COMMON_CACHE_TAG.TEST]}}
-    });
+    const {data} = await repository.common.getTest();
 
     // [D] 응답 데이터 모델 밸리데이션
     Shared.zod.schemaValid({acName: 'acCommonGetTest', schema: TestSchema, data});
@@ -32,12 +35,16 @@ const getComments = async () => {
       throw new Error('응답 형식이 올바르지 않습니다.');
     }
 
+    cacheLife('minutes');
+
     return {data, fetchedAt: new Date().toISOString()};
   } catch (err) {
     // Next 내부 제어 에러(redirect, notFound, 동적 렌더링 신호 등)는 삼키지 않고 다시 던짐
     unstable_rethrow(err);
 
-    // 외부 API 실패가 페이지 전체를 죽이지 않도록 에러 문구로 대체
+    // "use cache" 안의 에러는 바깥에서 catch 해도 prerender(빌드)가 실패하므로 안에서 처리, 실패 결과는 짧게만 캐시
+    cacheLife('seconds');
+
     return {error: (err as Error).message};
   }
 };
@@ -73,7 +80,10 @@ const TestPage = () => {
     <>
       <h2>[테스트] 서버 컴포넌트 XHR (repository/server)</h2>
       <RefreshForm />
-      <ServerComments />
+      {/* 캐시 수명이 짧거나(seconds) 런타임 데이터면 요청 시점에 스트리밍 → Suspense 경계 필수 (Cache Components) */}
+      <Suspense fallback={<p>Loading...</p>}>
+        <ServerComments />
+      </Suspense>
 
       <hr />
 

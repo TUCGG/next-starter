@@ -89,7 +89,7 @@ export default (...configs) => {
         tseslint.configs.recommended,
         // reactHooks.configs['recommended-latest'],
         reactHooks.configs.flat.recommended, // 리액트 최신 ESLint 반영
-        nextPlugin.flatConfig.coreWebVitals, // Next 권장 + Core Web Vitals 규칙
+        nextPlugin.configs['core-web-vitals'], // Next 권장 + Core Web Vitals 규칙
 
         security.configs.recommended,
         sonarjs.configs.recommended,

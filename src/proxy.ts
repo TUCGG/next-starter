@@ -1,11 +1,11 @@
 import {type NextRequest, NextResponse} from 'next/server';
 
 /**
- * middleware
- * @description 요청 가로채기 (인증 체크, 리다이렉트, 헤더 추가 등) - Next 16에서는 proxy.ts 로 변경
- * @see https://nextjs.org/docs/app/building-your-application/routing/middleware
+ * proxy
+ * @description 요청 가로채기 (인증 체크, 리다이렉트, 헤더 추가 등) - Next 15 middleware.ts 대체, Node.js 런타임
+ * @see https://nextjs.org/docs/app/getting-started/proxy
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // [D] 테스트 페이지는 운영 환경에서 차단 (404)
   if (process.env.NEXT_PUBLIC_NODE_ENV === 'production' && request.nextUrl.pathname.startsWith('/test')) {
     return NextResponse.rewrite(new URL('/not-found', request.url));
