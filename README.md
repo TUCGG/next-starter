@@ -4,19 +4,21 @@
 
 `react-starter`의 서비스 레이어(api / repository / shared)와 폴더 규칙을 Next.js App Router로 옮긴 기본 틀
 
-## 브랜치
+## 브랜치 (릴리즈 라인)
 
-| 브랜치    | Next | 설명                                                         |
-| --------- | ---- | ------------------------------------------------------------ |
-| `master`  | 15.5 | 기본 틀 (`middleware.ts`, fetch 캐시 옵션)                   |
-| `next-16` | 16.4 | `proxy.ts`, Turbopack 기본, Cache Components (`"use cache"`) |
+| 브랜치            | Next | 설명                                                         |
+| ----------------- | ---- | ------------------------------------------------------------ |
+| `master`          | 15.5 | 기본 틀 (`middleware.ts`, fetch 캐시 옵션)                   |
+| `release/next-16` | 16.4 | `proxy.ts`, Turbopack 기본, Cache Components (`"use cache"`) |
 
-두 브랜치의 차이는 `git diff master next-16` 으로 확인
+- 버전별 릴리즈 라인으로 독립 관리 (master 변경을 자동으로 따라가지 않음)
+- 양쪽에 필요한 수정은 각 브랜치에 따로 반영 (`git cherry-pick`)
+- 16 전환 시점의 차이: `release/next-16` 의 첫 커밋 (`* Next 16 전환 ...`)
 
 > 브랜치 전환 후에는 `npm install` 과 `.next` 삭제가 필요 (이전 버전이 생성한 `.next/types` 가 타입 체크를 깨뜨림)
 >
 > ```bash
-> git switch next-16 && npm install && rm -rf .next
+> git switch release/next-16 && npm install && rm -rf .next
 > ```
 
 ## 시작하기

@@ -10,10 +10,10 @@ Next 자체 기능이 크게 바뀐 15 → 16 구간을 브랜치로 나눠 둔�
 
 ## 브랜치
 
-| 브랜치    | Next   | React | 설명                                                                        |
-| --------- | ------ | ----- | --------------------------------------------------------------------------- |
-| `master`  | 15.5.x | 19.2  | 기본 틀                                                                     |
-| `next-16` | 16.4.x | 19.2  | master + 16 전환 커밋 1개 (`git diff master next-16` = 마이그레이션 포인트) |
+| 브랜치            | Next   | React | 설명                                                                                   |
+| ----------------- | ------ | ----- | -------------------------------------------------------------------------------------- |
+| `master`          | 15.5.x | 19.2  | 기본 틀                                                                                |
+| `release/next-16` | 16.4.x | 19.2  | master에서 분기한 릴리즈 라인. 첫 커밋 = 16 전환 (마이그레이션 포인트), 이후 독립 관리 |
 
 ## 폴더 구조
 
@@ -37,7 +37,7 @@ src/
 │  ├─ index.ts                # 클라이언트용 repository
 │  └─ server.ts               # 서버용 repository (server-only)
 ├─ components/ containers/ context/ hoc/ hooks/ providers/ shared/ store/ typings/
-├─ middleware.ts              # (master) / proxy.ts (next-16)
+├─ middleware.ts              # (master) / proxy.ts (release/next-16)
 ```
 
 - `src/pages`는 두지 않는다 (Next가 Pages Router로 인식).
@@ -58,9 +58,9 @@ src/
 - 공통 `environment/.env` + `APP_ENV`별 `environment/.env.{development,qa,production}.local` + 시크릿 `environment/secrets/.env.secret.{APP_ENV}.local`.
   `next.config.ts`에서 dotenv로 로드 (우선순위: 환경별 → 시크릿 → 공통). 루트 `.env`는 Next가 먼저 자동 로드해 우선순위가 뒤집히므로 두지 않는다.
 
-## 15 → 16 차이 (next-16 브랜치 커밋 범위)
+## 15 → 16 차이 (release/next-16 전환 커밋 범위)
 
-| 항목                   | master (15.5)                                     | next-16 (16.4)                                                     |
+| 항목                   | master (15.5)                                     | release/next-16 (16.4)                                             |
 | ---------------------- | ------------------------------------------------- | ------------------------------------------------------------------ |
 | 요청 가로채기          | `middleware.ts` / `export function middleware`    | `proxy.ts` / `export function proxy`                               |
 | 번들러                 | `next dev --turbopack`, build는 webpack           | dev/build 모두 Turbopack 기본                                      |
