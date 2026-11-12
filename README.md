@@ -13,6 +13,12 @@
 
 두 브랜치의 차이는 `git diff master next-16` 으로 확인
 
+> 브랜치 전환 후에는 `npm install` 과 `.next` 삭제가 필요 (이전 버전이 생성한 `.next/types` 가 타입 체크를 깨뜨림)
+>
+> ```bash
+> git switch next-16 && npm install && rm -rf .next
+> ```
+
 ## 시작하기
 
 ```bash
