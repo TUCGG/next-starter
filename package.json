@@ -13,7 +13,7 @@
     "start:dev": "cross-env APP_ENV=development next start",
     "start:qa": "cross-env APP_ENV=qa next start",
     "start": "cross-env APP_ENV=production next start",
-    "ts:check": "tsc --noEmit",
+    "ts:check": "next typegen && tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",

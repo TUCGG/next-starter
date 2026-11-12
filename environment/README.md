@@ -8,7 +8,8 @@
 
 ### 전역 공통 환경 설정 파일
 
-- 프로젝트 루트 경로의 `.env` 파일 에서 관리
+- `environment/.env` 파일에서 관리 (루트 `.env` 는 Next가 자동 로드해 환경별 값보다 우선하므로 사용하지 않음)
+- 우선순위: 환경별(`.env.{APP_ENV}.local`) → 시크릿(`secrets/.env.secret.{APP_ENV}.local`) → 공통(`.env`), 로드 위치: `next.config.ts`
 
 ### 파일 구조 예시
 
@@ -26,9 +27,8 @@
 │  │  ├─ .env.semgrep.local # 정적 보안 분석
 │  │  └─ .env.sonarqube.local # 전체 코드 품질 분석
 │  │
+|  ├─ .env # 공통 환경
 |  ├─ .env.development.local # 개발 환경
 |  ├─ .env.qa.local # 검증 환경
 |  └─ .env.production.local # 프로덕션 환경
-|
-├─ .env # 공통 환경
 ```

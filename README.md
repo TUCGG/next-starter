@@ -37,8 +37,10 @@ npm run start:dev  # 개발 환경 실행 (빌드와 같은 APP_ENV로 실행)
 
 ## 환경 변수
 
-- 공통: `.env`
+- 공통: `environment/.env` (루트 `.env` 는 Next가 자동 로드해 환경별 값보다 우선하므로 사용하지 않음)
 - 환경별: `environment/.env.{development,qa,production}.local` (`APP_ENV`로 선택, 미지정 시 production)
+- 시크릿: `environment/secrets/.env.secret.{APP_ENV}.local` (git 제외)
+- 우선순위: 환경별 → 시크릿 → 공통 (이미 설정된 시스템 환경 변수가 가장 우선)
 - `NEXT_PUBLIC_*` 는 브라우저 번들에 포함, 접두사 없는 값(`API_URL`)은 서버 전용
 - 로드 위치: `next.config.ts`
 

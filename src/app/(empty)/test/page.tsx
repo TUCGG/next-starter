@@ -26,6 +26,11 @@ const getComments = async () => {
     // [D] 응답 데이터 모델 밸리데이션
     Shared.zod.schemaValid({acName: 'acCommonGetTest', schema: TestSchema, data});
 
+    // 스키마 불일치는 로그만 남기지만, 렌더링이 의존하는 형태(배열)가 아니면 실패로 처리 (예: API_URL 오설정으로 200 HTML 응답)
+    if (!Array.isArray(data)) {
+      throw new Error('응답 형식이 올바르지 않습니다.');
+    }
+
     return {data, fetchedAt: new Date().toISOString()};
   } catch (err) {
     // 외부 API 실패가 페이지 전체를 죽이지 않도록 에러 문구로 대체

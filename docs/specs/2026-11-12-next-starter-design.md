@@ -10,10 +10,10 @@ Next 자체 기능이 크게 바뀐 15 → 16 구간을 브랜치로 나눠 둔�
 
 ## 브랜치
 
-| 브랜치 | Next | React | 설명 |
-|---|---|---|---|
-| `master` | 15.5.x | 19.2 | 기본 틀 |
-| `next-16` | 16.4.x | 19.2 | master + 16 전환 커밋 1개 (`git diff master next-16` = 마이그레이션 포인트) |
+| 브랜치    | Next   | React | 설명                                                                        |
+| --------- | ------ | ----- | --------------------------------------------------------------------------- |
+| `master`  | 15.5.x | 19.2  | 기본 틀                                                                     |
+| `next-16` | 16.4.x | 19.2  | master + 16 전환 커밋 1개 (`git diff master next-16` = 마이그레이션 포인트) |
 
 ## 폴더 구조
 
@@ -55,17 +55,17 @@ src/
 ## 환경 변수
 
 - `VITE_*` → 브라우저 노출 값은 `NEXT_PUBLIC_*`, 서버 전용 값(`API_URL`)은 접두사 없음.
-- 공통 `.env` + `APP_ENV`별 `environment/.env.{development,qa,production}.local`.
-  `next.config.ts`에서 dotenv로 로드.
+- 공통 `environment/.env` + `APP_ENV`별 `environment/.env.{development,qa,production}.local` + 시크릿 `environment/secrets/.env.secret.{APP_ENV}.local`.
+  `next.config.ts`에서 dotenv로 로드 (우선순위: 환경별 → 시크릿 → 공통). 루트 `.env`는 Next가 먼저 자동 로드해 우선순위가 뒤집히므로 두지 않는다.
 
 ## 15 → 16 차이 (next-16 브랜치 커밋 범위)
 
-| 항목 | master (15.5) | next-16 (16.4) |
-|---|---|---|
-| 요청 가로채기 | `middleware.ts` / `export function middleware` | `proxy.ts` / `export function proxy` |
-| 번들러 | `next dev --turbopack`, build는 webpack | dev/build 모두 Turbopack 기본 |
-| 캐시 | 호출부 `fetchOptions: {next: {revalidate, tags}}` | `cacheComponents: true` + `"use cache"` / `cacheLife` / `cacheTag` |
-| 무효화 (Server Action) | `revalidateTag(tag)` | `updateTag(tag)` |
+| 항목                   | master (15.5)                                     | next-16 (16.4)                                                     |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------------------ |
+| 요청 가로채기          | `middleware.ts` / `export function middleware`    | `proxy.ts` / `export function proxy`                               |
+| 번들러                 | `next dev --turbopack`, build는 webpack           | dev/build 모두 Turbopack 기본                                      |
+| 캐시                   | 호출부 `fetchOptions: {next: {revalidate, tags}}` | `cacheComponents: true` + `"use cache"` / `cacheLife` / `cacheTag` |
+| 무효화 (Server Action) | `revalidateTag(tag)`                              | `updateTag(tag)`                                                   |
 
 공통으로 처음부터 반영: `params`/`cookies()`는 `await`, lint는 `eslint .` 직접 실행.
 
