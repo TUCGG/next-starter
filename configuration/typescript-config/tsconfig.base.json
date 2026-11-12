@@ -23,15 +23,11 @@
     // "noUnusedLocals": false,
     // "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
+    "noUncheckedSideEffectImports": true
     // "noImplicitAny": false,
 
-    // "baseUrl": ".",
+    // "baseUrl": "."
 
-    /** Path Alias */
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["src/*"]
-    }
+    /** Path Alias: 프로젝트 tsconfig.json 에서 선언 (Turbopack은 paths를 선언한 파일 기준으로 해석) */
   }
 }
